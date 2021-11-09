@@ -45,15 +45,20 @@ for i in data:
     elem.send_keys(Keys.CONTROL + "a")
     elem.send_keys(Keys.DELETE)
     elem.send_keys(i[1])
-
+    time.sleep(2)
     WebDriverWait(browser, 20).until(
-        EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div[1]/div[1]/div/div[2]/div[3]/form/div[2]/button'))
+        EC.element_to_be_clickable(
+            (By.XPATH, '/html/body/div[5]/div[1]/div[1]/div/div[2]/div[3]/form/div[2]/button'))
     )
     elem = browser.find_element_by_xpath("/html/body/div[5]/div[1]/div[1]/div/div[2]/div[3]/form/div[2]/button")
     elem.click()
     WebDriverWait(browser, 20).until(
         EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div[1]/div[1]/div/div[2]/div[3]/form/div[2]/button'))
     )
+    while True:
+        if "Please try again" in browser.page_source:
+            break
     time.sleep(1)
+
 
 browser.quit()
